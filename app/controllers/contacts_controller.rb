@@ -1,16 +1,24 @@
 class ContactsController < ApplicationController
+  skip_before_action :verify_authenticity_token
   def new
     @contact = Contact.new
   end
+
   def create
-    @contact = Contact.new(params[:contact])
-    @contact.request = request
-    if @contact.deliver
-      flash.now[:error] = nil
+    @contact = Contact.new(secure_params)
+    if 1==1
+      UserMailer.contact_email(@contact).deliver_now
+      flash[:notice] = "Message sent from #{@contact.name}."
+      redirect_to root_path
     else
-      flash.now[:error] = "Cannot send message."
       render :new
     end
+  end
+  
+   private
+
+  def secure_params
+    params.permit(:name, :email, :subject, :message)
   end
 end
 

@@ -2,21 +2,19 @@
 
 <div class="skinny_wrapper wrapper_padding">
 	<%= form_for @contact do |f| %>
-	<% end %>
-	<label>Name</label><br>
-	<input type="text">
+
+	Name: <%= f.text_field :name %>
 
 	<br>
 
-	<label>Email</label>label><br>
-	<input type="text">
+	Email: <%= f.email_field :email %>
+
+	<br>
+	Message: <%= f.text_field :message %>
+
 
 	<br>
 
-	<label>Message</label>label><br>
-	<textarea></textarea>
-
-	<br>
-
-	<input type="submit" value="Send Message" class="button">
+	<%= f.submit %>
+		<% end %>
 </div>
